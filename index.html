@@ -13,16 +13,18 @@
 </body>
 
 <script>
+    // Returns a random choice of rock/paper/scissors to simulate the computer's turn in the game.
     function computerPlay() {
         let choiceArray = ["rock", "paper", "scissors"];
         return choiceArray[Math.floor(Math.random() * choiceArray.length)];
     }
 
+    // Plays a single round of rock paper scissors.
+    // Takes player selection and computer selection as input and converts to lowercase.
+    // Then returns a string stating who won.
     function playRound(playerSelection, computerSelection) {
         let playerChoice = playerSelection.toLowerCase();
         let computerChoice = computerSelection.toLowerCase();
-
-        console.log(computerChoice);
 
         if (playerChoice === computerChoice) {
             return "You tied!";
@@ -43,7 +45,34 @@
         }
     }
 
-    console.log(playRound("scISSorS", computerPlay()));
+    // Retrieve the player's choice via prompt
+    // Ensures that the player typed a correct choice
+    function getPlayerChoice() {
+        // conver to lowercase and trim to minimize possible user error
+        let playerChoice = prompt("Choose: Rock, Paper, Scissors").toLowerCase().trim();
+        
+        // check to make sure the input was typed correctly, reprompt if incorrect
+        if (playerChoice !== "rock" && playerChoice !== "scissors" && playerChoice !== "paper") {
+
+            playerChoice = errorTryAgain();
+        }
+
+        return playerChoice;
+    }
+
+    // alert user that they typed something incorrectly, reprompting for new answer
+    function errorTryAgain() {
+        alert("Looks like you typed something wrong, please try again!");
+        return getPlayerChoice();
+    }
+
+    // Play a 5 round game of rock paper scissors. 
+    // Uses a combination of other functions to complete this.
+    function game() {
+        
+    }
+
+    
 
 
 </script>
