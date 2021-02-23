@@ -18,7 +18,32 @@
         return choiceArray[Math.floor(Math.random() * choiceArray.length)];
     }
 
-    console.log(computerPlay());
+    function playRound(playerSelection, computerSelection) {
+        let playerChoice = playerSelection.toLowerCase();
+        let computerChoice = computerSelection.toLowerCase();
+
+        console.log(computerChoice);
+
+        if (playerChoice === computerChoice) {
+            return "You tied!";
+        } else if (playerChoice === "rock" && computerChoice === "paper") {
+            return "You lose! Rock loses to paper.";
+        } else if (playerChoice === "rock" && computerChoice === "scissors") {
+            return "You win! Rock beats scissors.";
+        } else if (playerChoice === "scissors" && computerChoice === "rock") {
+            return "You lose! Scissors loses to rock.";
+        } else if (playerChoice === "scissors" && computerChoice === "paper") {
+            return "You win! Scissors beats paper.";
+        } else if (playerChoice === "paper" && computerChoice === "rock") {
+            return "You win! Paper beats rock.";
+        } else if (playerChoice === "paper" && computerChoice === "scissors") {
+            return "You lose! Paper loses to scissors.";
+        } else {
+            return "Something went wrong";
+        }
+    }
+
+    console.log(playRound("scISSorS", computerPlay()));
 
 
 </script>
