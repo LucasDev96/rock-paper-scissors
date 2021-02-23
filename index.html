@@ -29,17 +29,19 @@
         if (playerChoice === computerChoice) {
             return "You tied!";
         } else if (playerChoice === "rock" && computerChoice === "paper") {
-            return "You lose! Rock loses to paper.";
+            return "You tied this round. Go again!";
+        } else if (playerChoice === "rock" && computerChoice === "paper") {
+            return "You lose this round! Rock loses to paper."
         } else if (playerChoice === "rock" && computerChoice === "scissors") {
-            return "You win! Rock beats scissors.";
+            return "You win this round! Rock beats scissors.";
         } else if (playerChoice === "scissors" && computerChoice === "rock") {
-            return "You lose! Scissors loses to rock.";
+            return "You lose this round! Scissors loses to rock.";
         } else if (playerChoice === "scissors" && computerChoice === "paper") {
-            return "You win! Scissors beats paper.";
+            return "You win this round! Scissors beats paper.";
         } else if (playerChoice === "paper" && computerChoice === "rock") {
-            return "You win! Paper beats rock.";
+            return "You win this round! Paper beats rock.";
         } else if (playerChoice === "paper" && computerChoice === "scissors") {
-            return "You lose! Paper loses to scissors.";
+            return "You lose this round! Paper loses to scissors.";
         } else {
             return "Something went wrong";
         }
