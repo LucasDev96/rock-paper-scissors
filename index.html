@@ -14,7 +14,7 @@
 
 <script>
     // Returns a random choice of rock/paper/scissors to simulate the computer's turn in the game.
-    function computerPlay() {
+    function getComputerChoice() {
         let choiceArray = ["rock", "paper", "scissors"];
         return choiceArray[Math.floor(Math.random() * choiceArray.length)];
     }
@@ -27,8 +27,6 @@
         let computerChoice = computerSelection.toLowerCase();
 
         if (playerChoice === computerChoice) {
-            return "You tied!";
-        } else if (playerChoice === "rock" && computerChoice === "paper") {
             return "You tied this round. Go again!";
         } else if (playerChoice === "rock" && computerChoice === "paper") {
             return "You lose this round! Rock loses to paper."
@@ -50,9 +48,9 @@
     // Retrieve the player's choice via prompt
     // Ensures that the player typed a correct choice
     function getPlayerChoice() {
-        // conver to lowercase and trim to minimize possible user error
+        // convert to lowercase and trim to minimize possible user error
         let playerChoice = prompt("Choose: Rock, Paper, Scissors").toLowerCase().trim();
-        
+
         // check to make sure the input was typed correctly, reprompt if incorrect
         if (playerChoice !== "rock" && playerChoice !== "scissors" && playerChoice !== "paper") {
 
@@ -68,13 +66,64 @@
         return getPlayerChoice();
     }
 
+    // returns a string containing what the current score is for each player
+    function reportScore(playerScore, computerScore) {
+        return `Player Score: ${playerScore}  Computer Score: ${computerScore}`;
+    }
+
+    // returns a string to declare the score and the winner
+    function reportWinner(playerScore, computerScore) {
+        let winningMessage;
+
+        // compare score to determine who wins.
+        if (playerScore > computerScore) {
+            winningMessage = `You win! ${reportScore(playerScore, computerScore)}`;
+        } else if (playerScore < computerScore) {
+            winningMessage = `You lose! ${reportScore(playerScore, computerScore)}`;
+        } else {
+            winningMessage = `You tied, there is no winner! ${reportScore(playerScore, computerScore)}`;
+        }
+
+        return winningMessage;
+    }
+
     // Play a 5 round game of rock paper scissors. 
     // Uses a combination of other functions to complete this.
     function game() {
-        
+        // score tracking variables
+        let playerScore = 0;
+        let computerScore = 0;
+        let roundResults;
+
+        // while loop helper variable
+        let keepPlaying = true;
+
+        while (keepPlaying) {
+            // store results of a single round
+            roundResults = playRound(getPlayerChoice(), getComputerChoice());
+            // log current round
+            console.log(roundResults);
+
+            // check who won
+            if (roundResults.includes("win")) {
+                playerScore++;
+            } else if (roundResults.includes("lose")) {
+                computerScore++;
+            }
+
+            // report the score
+            console.log(reportScore(playerScore, computerScore));
+
+            // end while loop after five rounds, ties aren't counted as rounds
+            if (playerScore + computerScore === 5) {
+                keepPlaying = false;
+            }
+        }
+
+        console.log(reportWinner(playerScore, computerScore));
     }
 
-    
+    game();
 
 
 </script>
