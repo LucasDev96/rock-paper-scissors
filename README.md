@@ -1,0 +1,2 @@
+2/22/21
+This is the beginning of my first implementation of my rock, paper, scissors program. I'm doing this as part of a project for The Odin Project. As of this implementation it will only be through the command line and only have javascript, but later it will have some sort of interface. The plan is for the user to play through five rounds of rock paper scissors against the computer and to keep track of the score. The winner and results will be displayed in console.log. 
