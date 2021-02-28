@@ -6,6 +6,17 @@
     <title>Rock Paper Scissors</title>
 </head>
 
+    <div class="play-buttons">
+        <button id="rock">ROCK</button>
+        <button id="paper">PAPER</button>
+        <button id="scissors">SCISSORS</button>
+    </div>
+
+    <div class="results">
+        <p id="round-results"></p>
+        <p id="final-results"></p>
+    </div>
+
 <body>
     <main>
 
@@ -49,7 +60,7 @@
     // Ensures that the player typed a correct choice
     function getPlayerChoice() {
         // convert to lowercase and trim to minimize possible user error
-        let playerChoice = prompt("Choose: Rock, Paper, Scissors").toLowerCase().trim();
+        // let playerChoice = prompt("Choose: Rock, Paper, Scissors").toLowerCase().trim();
 
         // check to make sure the input was typed correctly, reprompt if incorrect
         if (playerChoice !== "rock" && playerChoice !== "scissors" && playerChoice !== "paper") {
@@ -61,10 +72,10 @@
     }
 
     // alert user that they typed something incorrectly, reprompting for new answer
-    function errorTryAgain() {
-        alert("Looks like you typed something wrong, please try again!");
-        return getPlayerChoice();
-    }
+    // function errorTryAgain() {
+    //     alert("Looks like you typed something wrong, please try again!");
+    //     return getPlayerChoice();
+    // }
 
     // returns a string containing what the current score is for each player
     function reportScore(playerScore, computerScore) {
