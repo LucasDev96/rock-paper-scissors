@@ -3,3 +3,4 @@ This is the beginning of my first implementation of my rock, paper, scissors pro
 
 2/28/21
 Getting started on adding a little bit of interactivity to the rock paper scissors game. Once I'm done with this step there will be a really simple UI. There should be buttons for the player to click on and text on the screen to display the results of each round and the entire game.
+I was abled to make a very simple UI with buttons and paragraphs using HTML and JavaScript. At first there's only the three buttons to start the game, one you start playing it will show you the results of what happened in the round and the current score. After you've played five rounds (ties don't count) then the buttons won't work anymore, the final score text appears along with a reset button if you want to play again.
