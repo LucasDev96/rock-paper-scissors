@@ -35,15 +35,11 @@
     let playerScore = 0;
     let computerScore = 0;
 
-    if (playerScore + computerScore < 5) {
-        buttons.forEach(button => {
-            button.addEventListener("click", () => {
-                game(button.textContent.toLowerCase().trim());
-            });
+    buttons.forEach(button => {
+        button.addEventListener("click", () => {
+            game(button.textContent.toLowerCase().trim());
         });
-    }
-
-
+    });
 
     // Returns a random choice of rock/paper/scissors to simulate the computer's turn in the game.
     function getComputerChoice() {
@@ -102,8 +98,9 @@
     // Play a 5 round game of rock paper scissors. 
     // Uses a combination of other functions to complete this.
     function game(playerChoice) {
-        let roundResults;
+        if (playerScore + computerScore >= 5) return;
 
+        let roundResults;
 
         // store results of a single round
         roundResults = playRound(playerChoice, getComputerChoice());
