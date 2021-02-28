@@ -30,21 +30,42 @@
     let roundResultsPara = document.querySelector("#round-results");
     let currentScorePara = document.querySelector("#current-score");
     let finalResultsPara = document.querySelector("#final-results");
+    let buttonReset = document.createElement("button");
+    buttonReset.textContent = "RESET GAME";
 
     // score tracking variables
     let playerScore = 0;
     let computerScore = 0;
 
-    buttons.forEach(button => {
-        button.addEventListener("click", () => {
-            game(button.textContent.toLowerCase().trim());
-        });
-    });
+    // Play a 5 round game of rock paper scissors. 
+    // Uses a combination of other functions to complete this.
+    function game(playerChoice) {
+        // stop function if the game has completed
+        if (playerScore + computerScore >= 5) return;
 
-    // Returns a random choice of rock/paper/scissors to simulate the computer's turn in the game.
-    function getComputerChoice() {
-        let choiceArray = ["rock", "paper", "scissors"];
-        return choiceArray[Math.floor(Math.random() * choiceArray.length)];
+        let roundResults;
+
+        // store results of a single round
+        roundResults = playRound(playerChoice, getComputerChoice());
+        // log current round
+        roundResultsPara.textContent = roundResults;
+
+        // check who won the round
+        if (roundResults.includes("win")) {
+            playerScore++;
+        } else if (roundResults.includes("lose")) {
+            computerScore++;
+        }
+
+        // report the score
+        currentScorePara.textContent = reportScore(playerScore, computerScore);
+
+        if (playerScore + computerScore === 5) {
+            finalResultsPara.textContent = reportWinner(playerScore, computerScore);
+            container.appendChild(buttonReset);
+            buttonReset.addEventListener("click", () => resetGame());
+        }
+
     }
 
     // Plays a single round of rock paper scissors.
@@ -73,6 +94,18 @@
         }
     }
 
+    // calls game() and takes text from the button to play a round
+    buttons.forEach(button => {
+        button.addEventListener("click", () => {
+            game(button.textContent.toLowerCase().trim());
+        });
+    });
+
+    // Returns a random choice of rock/paper/scissors to simulate the computer's turn in the game.
+    function getComputerChoice() {
+        let choiceArray = ["rock", "paper", "scissors"];
+        return choiceArray[Math.floor(Math.random() * choiceArray.length)];
+    }
 
     // returns a string containing what the current score is for each player
     function reportScore(playerScore, computerScore) {
@@ -95,32 +128,14 @@
         return winningMessage;
     }
 
-    // Play a 5 round game of rock paper scissors. 
-    // Uses a combination of other functions to complete this.
-    function game(playerChoice) {
-        if (playerScore + computerScore >= 5) return;
-
-        let roundResults;
-
-        // store results of a single round
-        roundResults = playRound(playerChoice, getComputerChoice());
-        // log current round
-        roundResultsPara.textContent = roundResults;
-
-        // check who won the round
-        if (roundResults.includes("win")) {
-            playerScore++;
-        } else if (roundResults.includes("lose")) {
-            computerScore++;
-        }
-
-        // report the score
-        currentScorePara.textContent = reportScore(playerScore, computerScore);
-
-        if (playerScore + computerScore === 5) {
-            finalResultsPara.textContent = reportWinner(playerScore, computerScore);
-        }
-
+    // Reset the game so you can play again without refreshing
+    function resetGame() {
+        playerScore = 0;
+        computerScore = 0;
+        container.removeChild(buttonReset);
+        roundResultsPara.textContent = "";
+        currentScorePara.textContent = "";
+        finalResultsPara.textContent = "";
     }
 
 </script>
