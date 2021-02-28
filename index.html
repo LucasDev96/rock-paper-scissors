@@ -6,24 +6,26 @@
     <title>Rock Paper Scissors</title>
 </head>
 
-    <div class="play-buttons">
-        <button id="rock">ROCK</button>
-        <button id="paper">PAPER</button>
-        <button id="scissors">SCISSORS</button>
-    </div>
-
-    <div class="results">
-        <p id="round-results"></p>
-        <p id="final-results"></p>
-    </div>
-
 <body>
     <main>
+        <div id="container">
+            <div class="play-buttons">
+                <button id="rock">ROCK</button>
+                <button id="paper">PAPER</button>
+                <button id="scissors">SCISSORS</button>
+            </div>
 
+            <div class="results">
+                <p id="round-results"></p>
+                <p id="final-results"></p>
+            </div>
+        </div>
     </main>
 </body>
 
 <script>
+    let buttons = document.querySelectorAll("button");
+
     // Returns a random choice of rock/paper/scissors to simulate the computer's turn in the game.
     function getComputerChoice() {
         let choiceArray = ["rock", "paper", "scissors"];
@@ -34,8 +36,8 @@
     // Takes player selection and computer selection as input and converts to lowercase.
     // Then returns a string stating who won.
     function playRound(playerSelection, computerSelection) {
-        let playerChoice = playerSelection.toLowerCase();
-        let computerChoice = computerSelection.toLowerCase();
+        let playerChoice = playerSelection;
+        let computerChoice = computerSelection;
 
         if (playerChoice === computerChoice) {
             return "You tied this round. Go again!";
@@ -56,17 +58,14 @@
         }
     }
 
-    // Retrieve the player's choice via prompt
-    // Ensures that the player typed a correct choice
+    // Retrieve the player's choice from the buttons
     function getPlayerChoice() {
-        // convert to lowercase and trim to minimize possible user error
-        // let playerChoice = prompt("Choose: Rock, Paper, Scissors").toLowerCase().trim();
-
-        // check to make sure the input was typed correctly, reprompt if incorrect
-        if (playerChoice !== "rock" && playerChoice !== "scissors" && playerChoice !== "paper") {
-
-            playerChoice = errorTryAgain();
-        }
+        let playerChoice;
+        buttons.forEach(button => {
+            button.addEventListener("click", () => {
+                playerChoice = button.textContent.toLowerCase().trim();
+            });
+        })
 
         return playerChoice;
     }
@@ -109,33 +108,32 @@
         // while loop helper variable
         let keepPlaying = true;
 
-        while (keepPlaying) {
-            // store results of a single round
-            roundResults = playRound(getPlayerChoice(), getComputerChoice());
-            // log current round
-            console.log(roundResults);
 
-            // check who won
-            if (roundResults.includes("win")) {
-                playerScore++;
-            } else if (roundResults.includes("lose")) {
-                computerScore++;
-            }
+        // store results of a single round
+        roundResults = playRound(getPlayerChoice(), getComputerChoice());
+        // log current round
+        console.log(roundResults);
 
-            // report the score
-            console.log(reportScore(playerScore, computerScore));
-
-            // end while loop after five rounds, ties aren't counted as rounds
-            if (playerScore + computerScore === 5) {
-                keepPlaying = false;
-            }
+        // check who won
+        if (roundResults.includes("win")) {
+            playerScore++;
+        } else if (roundResults.includes("lose")) {
+            computerScore++;
         }
+
+        // report the score
+        console.log(reportScore(playerScore, computerScore));
+
+        // end while loop after five rounds, ties aren't counted as rounds
+        if (playerScore + computerScore === 5) {
+            keepPlaying = false;
+        }
+
 
         console.log(reportWinner(playerScore, computerScore));
     }
 
     game();
-
 
 </script>
 
