@@ -17,6 +17,7 @@
 
             <div class="results">
                 <p id="round-results"></p>
+                <p id="current-score"></p>
                 <p id="final-results"></p>
             </div>
         </div>
@@ -24,7 +25,25 @@
 </body>
 
 <script>
+    let container = document.querySelector("#container");
     let buttons = document.querySelectorAll("button");
+    let roundResultsPara = document.querySelector("#round-results");
+    let currentScorePara = document.querySelector("#current-score");
+    let finalResultsPara = document.querySelector("#final-results");
+
+    // score tracking variables
+    let playerScore = 0;
+    let computerScore = 0;
+
+    if (playerScore + computerScore < 5) {
+        buttons.forEach(button => {
+            button.addEventListener("click", () => {
+                game(button.textContent.toLowerCase().trim());
+            });
+        });
+    }
+
+
 
     // Returns a random choice of rock/paper/scissors to simulate the computer's turn in the game.
     function getComputerChoice() {
@@ -58,17 +77,6 @@
         }
     }
 
-    // Retrieve the player's choice from the buttons
-    function getPlayerChoice() {
-        let playerChoice;
-        buttons.forEach(button => {
-            button.addEventListener("click", () => {
-                playerChoice = button.textContent.toLowerCase().trim();
-            });
-        })
-
-        return playerChoice;
-    }
 
     // returns a string containing what the current score is for each player
     function reportScore(playerScore, computerScore) {
@@ -93,22 +101,16 @@
 
     // Play a 5 round game of rock paper scissors. 
     // Uses a combination of other functions to complete this.
-    function game() {
-        // score tracking variables
-        let playerScore = 0;
-        let computerScore = 0;
+    function game(playerChoice) {
         let roundResults;
-
-        // while loop helper variable
-        let keepPlaying = true;
 
 
         // store results of a single round
-        roundResults = playRound(getPlayerChoice(), getComputerChoice());
+        roundResults = playRound(playerChoice, getComputerChoice());
         // log current round
-        console.log(roundResults);
+        roundResultsPara.textContent = roundResults;
 
-        // check who won
+        // check who won the round
         if (roundResults.includes("win")) {
             playerScore++;
         } else if (roundResults.includes("lose")) {
@@ -116,18 +118,13 @@
         }
 
         // report the score
-        console.log(reportScore(playerScore, computerScore));
+        currentScorePara.textContent = reportScore(playerScore, computerScore);
 
-        // end while loop after five rounds, ties aren't counted as rounds
         if (playerScore + computerScore === 5) {
-            keepPlaying = false;
+            finalResultsPara.textContent = reportWinner(playerScore, computerScore);
         }
 
-
-        console.log(reportWinner(playerScore, computerScore));
     }
-
-    game();
 
 </script>
 
